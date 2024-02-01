@@ -3,6 +3,8 @@
 #include "layoutcontext.h"
 #include "svgelement.h"
 
+#include <iostream>
+
 namespace lunasvg {
 
 Length Parser::parseLength(const std::string& string, LengthNegativeValuesMode mode, const Length& defaultValue)
@@ -991,12 +993,17 @@ ElementID elementid(const std::string& name)
         {"solidColor", ElementID::SolidColor},
         {"svg", ElementID::Svg},
         {"symbol", ElementID::Symbol},
-        {"use", ElementID::Use}
+        {"use", ElementID::Use},
+        {"image", ElementID::Image}
     };
 
     auto it = elementmap.find(name);
-    if(it == elementmap.end())
+    if (it == elementmap.end())
+    {
+        std::cerr << "Encountered an unsupported element tag" << std::endl;
         return ElementID::Unknown;
+    }
+
     return it->second;
 }
 

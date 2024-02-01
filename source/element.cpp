@@ -11,7 +11,9 @@
 #include "symbolelement.h"
 #include "useelement.h"
 #include "styleelement.h"
-#include "parser.h"
+#include "imageelement.h"
+
+#include <iostream>
 
 namespace lunasvg {
 
@@ -72,7 +74,13 @@ std::unique_ptr<Element> Element::create(ElementID id)
         return makeUnique<MarkerElement>();
     case ElementID::Style:
         return makeUnique<StyleElement>();
-    default:
+    case ElementID::Image:
+        return makeUnique<ImageElement>();
+    case ElementID::Unknown:
+    case ElementID::Star:
+    case ElementID::Text:
+    case ElementID::TSpan:
+        std::cerr << "Cannot create an unsupported element" << std::endl;
         break;
     }
 
